@@ -2,12 +2,13 @@ import { FC } from 'react';
 import CartoonImage from './CartoonImage';
 
 interface AboutSectionProps {
-  // Props can be added later if needed
+  // Add any props if needed
+  className?: string;
 }
 
-const AboutSection: FC<AboutSectionProps> = () => {
+const AboutSection: FC<AboutSectionProps> = ({ className }) => {
   return (
-    <section id="about" className="py-24 bg-[#3C7A3E]">
+    <section id="about" className={`py-24 bg-[#3C7A3E] ${className || ''}`}>
       <div className="w-[90%] max-w-[1200px] mx-auto px-4">
         <h2 className="text-3xl font-bold mb-12 text-center relative text-white">
           About Me
