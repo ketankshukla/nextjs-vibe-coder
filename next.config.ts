@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental: {
+    disableOptimizedLoading: true,
+    isrMemoryCacheSize: 0,
+    clientRouterFilter: true,
+    optimisticClientCache: true
+  },
+  reactStrictMode: true,
+  swcMinify: true
 };
 
 export default nextConfig;
