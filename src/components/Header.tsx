@@ -21,42 +21,16 @@ export default function Header() {
           </div>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <Link 
-              href="#home" 
-              className="relative hover:text-[#FFE873] transition-colors"
-            >
-              <span className="relative z-10">Home</span>
-              <div className="absolute bottom-0 left-0 w-0 h-2 bg-[#FFD43B] transition-all duration-300" />
-            </Link>
-            <Link 
-              href="#about" 
-              className="relative hover:text-[#FFE873] transition-colors"
-            >
-              <span className="relative z-10">About</span>
-              <div className="absolute bottom-0 left-0 w-0 h-2 bg-[#FFD43B] transition-all duration-300" />
-            </Link>
-            <Link 
-              href="#projects" 
-              className="relative hover:text-[#FFE873] transition-colors"
-            >
-              <span className="relative z-10">Projects</span>
-              <div className="absolute bottom-0 left-0 w-0 h-2 bg-[#FFD43B] transition-all duration-300" />
-            </Link>
-            <Link 
-              href="#blog" 
-              className="relative hover:text-[#FFE873] transition-colors"
-            >
-              <span className="relative z-10">Blog</span>
-              <div className="absolute bottom-0 left-0 w-0 h-2 bg-[#FFD43B] transition-all duration-300" />
-            </Link>
-            <Link 
-              href="#contact" 
-              className="relative hover:text-[#FFE873] transition-colors"
-            >
-              <span className="relative z-10">Contact</span>
-              <div className="absolute bottom-0 left-0 w-0 h-2 bg-[#FFD43B] transition-all duration-300" />
-            </Link>
+          <nav className="hidden md:flex items-center gap-8">
+            {['Home', 'About', 'Projects', 'Blog', 'Contact'].map((item, index) => (
+              <Link 
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className={`text-lg font-medium ${index % 2 === 0 ? 'text-white' : 'text-[#FFD43B]'} hover:text-[#FFD43B]/80 transition-colors`}
+              >
+                {item}
+              </Link>
+            ))}
           </nav>
 
           {/* Mobile Menu Toggle */}
