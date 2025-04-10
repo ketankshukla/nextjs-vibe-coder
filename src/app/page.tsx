@@ -3,6 +3,7 @@ import Footer from '@/components/Footer';
 import ProfileImage from '@/components/ProfileImage';
 import CartoonImage from '@/components/CartoonImage';
 
+// Data arrays (now properly used in the component)
 const projects = [
   {
     title: 'Log Analysis & Monitoring System',
@@ -102,10 +103,10 @@ export default function Home() {
               </div>
               <div className="about-content flex-1">
                 <p className="text-[1.1rem] text-gray-200 mb-6 leading-relaxed">
-                  I'm a Python ETL Developer based in San Diego, CA, specializing in building data processing pipelines and automation solutions. I have experience in creating ETL pipelines, designing database integrations, and implementing data validation systems through a portfolio of practical projects.
+                  I&apos;m a Python ETL Developer based in San Diego, CA, specializing in building data processing pipelines and automation solutions. I have experience in creating ETL pipelines, designing database integrations, and implementing data validation systems through a portfolio of practical projects.
                 </p>
                 <p className="text-[1.1rem] text-gray-200 mb-8 leading-relaxed">
-                  I'm passionate about data engineering and committed to data accuracy and quality. Currently seeking an entry-level ETL Developer position to leverage my technical expertise and passion for data engineering in solving complex business problems.
+                  I&apos;m passionate about data engineering and committed to data accuracy and quality. Currently seeking an entry-level ETL Developer position to leverage my technical expertise and passion for data engineering in solving complex business problems.
                 </p>
                 
                 <div className="skills">
@@ -165,133 +166,46 @@ export default function Home() {
               <span className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-[70px] h-[4px] bg-[#FFD43B] rounded"></span>
             </h2>
             <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Project 1 */}
-              <div className="project-card bg-white/10 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
-                <div className="project-img bg-black/20 h-48 flex items-center justify-center">
-                  <h3 className="text-xl font-semibold text-[#FFD43B]">Log Analysis & Monitoring System</h3>
-                </div>
-                <div className="project-content p-6">
-                  <div className="project-tags flex flex-wrap gap-2 mb-4">
-                    <span className="project-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Python
-                    </span>
-                    <span className="project-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      regex
-                    </span>
-                    <span className="project-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Pandas
-                    </span>
-                    <span className="project-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      SQLite
-                    </span>
+              {projects.map((project, index) => (
+                <div key={index} className="project-card bg-white/10 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
+                  <div className="project-img bg-black/20 h-48 flex items-center justify-center">
+                    <h3 className="text-xl font-semibold text-[#FFD43B]">{project.title}</h3>
                   </div>
-                  <h3 className="text-xl font-semibold mb-4">Log Analysis & Monitoring System</h3>
-                  <p className="text-gray-200 mb-6">
-                    A Python-based log analysis system that processes server logs, extracts performance metrics, and identifies potential security threats with 97% accuracy using regex pattern matching.
-                  </p>
-                  <div className="project-btns flex gap-4">
-                    <a
-                      href="https://github.com/ketankshukla/log_analysis_system"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn project-btn inline-block px-6 py-3 bg-[#FFD43B] text-[#3C7A3E] rounded-lg hover:bg-[#FFE873] transition-colors"
-                    >
-                      View Project
-                    </a>
-                    <a
-                      href="https://github.com/ketankshukla/log_analysis_system"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-outline project-btn inline-block px-6 py-3 border border-[#FFD43B] text-[#FFD43B] rounded-lg hover:bg-[#FFD43B]/10 transition-colors"
-                    >
-                      Source Code
-                    </a>
+                  <div className="project-content p-6">
+                    <div className="project-tags flex flex-wrap gap-2 mb-4">
+                      {project.tech.map((tech, i) => (
+                        <span key={i} className="project-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="text-xl font-semibold mb-4">{project.title}</h3>
+                    <p className="text-gray-200 mb-6">
+                      {project.description}
+                    </p>
+                    <div className="project-btns flex gap-4">
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn project-btn inline-block px-6 py-3 bg-[#FFD43B] text-[#3C7A3E] rounded-lg hover:bg-[#FFE873] transition-colors"
+                      >
+                        {project.comingSoon ? 'Coming Soon' : 'View Project'}
+                      </a>
+                      {!project.comingSoon && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn project-btn inline-block px-6 py-3 border border-[#FFD43B] text-[#FFD43B] rounded-lg hover:bg-[#FFD43B]/10 transition-colors"
+                        >
+                          View Code
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Project 2 */}
-              <div className="project-card bg-white/10 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
-                <div className="project-img bg-black/20 h-48 flex items-center justify-center">
-                  <h3 className="text-xl font-semibold text-[#FFD43B]">Data Warehouse ETL Framework</h3>
-                </div>
-                <div className="project-content p-6">
-                  <div className="project-tags flex flex-wrap gap-2 mb-4">
-                    <span className="project-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Python
-                    </span>
-                    <span className="project-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Pandas
-                    </span>
-                    <span className="project-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      SQLAlchemy
-                    </span>
-                    <span className="project-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      PyYAML
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4">Data Warehouse ETL Framework</h3>
-                  <p className="text-gray-200 mb-6">
-                    A modular ETL framework for transferring data from multiple source systems to a central data warehouse with configurable extractors for various data sources including CSV, JSON, XML, and SQL databases.
-                  </p>
-                  <div className="project-btns flex gap-4">
-                    <a
-                      href="https://github.com/ketankshukla/data-warehouse-etl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn project-btn inline-block px-6 py-3 bg-[#FFD43B] text-[#3C7A3E] rounded-lg hover:bg-[#FFE873] transition-colors"
-                    >
-                      View Project
-                    </a>
-                    <a
-                      href="https://github.com/ketankshukla/data-warehouse-etl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-outline project-btn inline-block px-6 py-3 border border-[#FFD43B] text-[#FFD43B] rounded-lg hover:bg-[#FFD43B]/10 transition-colors"
-                    >
-                      Source Code
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Project 3 */}
-              <div className="project-card bg-white/10 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
-                <div className="project-img bg-black/20 h-48 flex items-center justify-center">
-                  <h3 className="text-xl font-semibold text-[#FFD43B]">Data Visualization Dashboard</h3>
-                </div>
-                <div className="project-content p-6">
-                  <div className="project-tags flex flex-wrap gap-2 mb-4">
-                    <span className="project-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Python
-                    </span>
-                    <span className="project-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Data Science
-                    </span>
-                    <span className="project-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Visualization
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4">Data Visualization Dashboard</h3>
-                  <p className="text-gray-200 mb-6">
-                    A comprehensive data visualization dashboard leveraging Python's data analysis and visualization libraries to provide interactive insights from complex datasets.
-                  </p>
-                  <div className="project-btns flex gap-4">
-                    <a
-                      href="#"
-                      className="btn project-btn inline-block px-6 py-3 bg-[#FFD43B] text-[#3C7A3E] rounded-lg hover:bg-[#FFE873] transition-colors"
-                    >
-                      Coming Soon
-                    </a>
-                    <a
-                      href="#"
-                      className="btn btn-outline project-btn inline-block px-6 py-3 border border-[#FFD43B] text-[#FFD43B] rounded-lg hover:bg-[#FFD43B]/10 transition-colors"
-                    >
-                      Learn More
-                    </a>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -304,110 +218,37 @@ export default function Home() {
               <span className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-[70px] h-[4px] bg-[#FFD43B] rounded"></span>
             </h2>
             <div className="blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Blog Post 1 */}
-              <div className="blog-card bg-white/10 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
-                <div className="blog-img bg-black/20 h-48 flex items-center justify-center">
-                  <h3 className="text-xl font-semibold text-[#FFD43B]">Getting Started with ETL in Python</h3>
-                </div>
-                <div className="blog-content p-6">
-                  <div className="blog-tags flex flex-wrap gap-2 mb-4">
-                    <span className="blog-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Python
-                    </span>
-                    <span className="blog-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      ETL
-                    </span>
-                    <span className="blog-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Data Engineering
-                    </span>
+              {blogPosts.map((post, index) => (
+                <div key={index} className="blog-card bg-white/10 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
+                  <div className="blog-img bg-black/20 h-48 flex items-center justify-center">
+                    <h3 className="text-xl font-semibold text-[#FFD43B]">{post.title}</h3>
                   </div>
-                  <h3 className="text-xl font-semibold mb-4 text-white">Getting Started with ETL in Python</h3>
-                  <p className="text-gray-200 mb-4">
-                    In this post, I share the fundamental concepts of ETL (Extract, Transform, Load) processes and how to implement them efficiently in Python...
-                  </p>
-                  <div className="blog-meta mb-4">
-                    <span className="text-[#FFD43B] text-sm font-medium">April 1, 2025</span>
-                  </div>
-                  <div className="blog-btns">
-                    <a
-                      href="#"
-                      className="btn blog-btn inline-block px-6 py-3 bg-[#FFD43B] text-[#3C7A3E] rounded-lg hover:bg-[#FFE873] transition-colors"
-                    >
-                      Read More
-                    </a>
+                  <div className="blog-content p-6">
+                    <div className="blog-tags flex flex-wrap gap-2 mb-4">
+                      {post.tags.map((tag, i) => (
+                        <span key={i} className="blog-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="text-xl font-semibold mb-4 text-white">{post.title}</h3>
+                    <p className="text-gray-200 mb-4">
+                      {post.excerpt}
+                    </p>
+                    <div className="blog-meta mb-4">
+                      <span className="text-[#FFD43B] text-sm font-medium">{post.date}</span>
+                    </div>
+                    <div className="blog-btns">
+                      <a
+                        href={post.url}
+                        className="btn blog-btn inline-block px-6 py-3 bg-[#FFD43B] text-[#3C7A3E] rounded-lg hover:bg-[#FFE873] transition-colors"
+                      >
+                        Read More
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Blog Post 2 */}
-              <div className="blog-card bg-white/10 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
-                <div className="blog-img bg-black/20 h-48 flex items-center justify-center">
-                  <h3 className="text-xl font-semibold text-[#FFD43B]">Best Practices for Data Validation</h3>
-                </div>
-                <div className="blog-content p-6">
-                  <div className="blog-tags flex flex-wrap gap-2 mb-4">
-                    <span className="blog-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Data Quality
-                    </span>
-                    <span className="blog-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Validation
-                    </span>
-                    <span className="blog-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Python
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4 text-white">Best Practices for Data Validation</h3>
-                  <p className="text-gray-200 mb-4">
-                    Data validation is a critical step in any data processing workflow. In this article, I discuss techniques and tools for ensuring data quality...
-                  </p>
-                  <div className="blog-meta mb-4">
-                    <span className="text-[#FFD43B] text-sm font-medium">March 15, 2025</span>
-                  </div>
-                  <div className="blog-btns">
-                    <a
-                      href="#"
-                      className="btn blog-btn inline-block px-6 py-3 bg-[#FFD43B] text-[#3C7A3E] rounded-lg hover:bg-[#FFE873] transition-colors"
-                    >
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Blog Post 3 */}
-              <div className="blog-card bg-white/10 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 backdrop-blur-sm">
-                <div className="blog-img bg-black/20 h-48 flex items-center justify-center">
-                  <h3 className="text-xl font-semibold text-[#FFD43B]">Automating Data Pipelines with Python</h3>
-                </div>
-                <div className="blog-content p-6">
-                  <div className="blog-tags flex flex-wrap gap-2 mb-4">
-                    <span className="blog-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Automation
-                    </span>
-                    <span className="blog-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Pipelines
-                    </span>
-                    <span className="blog-tag px-3 py-1 bg-[#FFD43B] text-[#3C7A3E] text-sm rounded-full font-medium">
-                      Python
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4 text-white">Automating Data Pipelines with Python</h3>
-                  <p className="text-gray-200 mb-4">
-                    Learn how to build reliable, automated data pipelines that can scale with your needs using Python and open-source tools...
-                  </p>
-                  <div className="blog-meta mb-4">
-                    <span className="text-[#FFD43B] text-sm font-medium">February 28, 2025</span>
-                  </div>
-                  <div className="blog-btns">
-                    <a
-                      href="#"
-                      className="btn blog-btn inline-block px-6 py-3 bg-[#FFD43B] text-[#3C7A3E] rounded-lg hover:bg-[#FFE873] transition-colors"
-                    >
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -416,100 +257,98 @@ export default function Home() {
         <section id="contact" className="py-24 bg-[#3C7A3E]">
           <div className="w-[90%] max-w-[1200px] mx-auto px-4">
             <h2 className="text-[2.5rem] font-bold mb-12 text-center relative text-white">
-              Contact
+              Get In Touch
               <span className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-[70px] h-[4px] bg-[#FFD43B] rounded"></span>
             </h2>
-            <div className="contact-container flex flex-col md:flex-row gap-16">
+            <div className="contact-container flex flex-col lg:flex-row gap-16">
               <div className="contact-info flex-1">
-                <h3 className="text-[1.5rem] font-semibold mb-6 text-white">Contact Information</h3>
+                <h3 className="text-[1.8rem] font-semibold mb-6 text-white">Let&apos;s Connect</h3>
                 <p className="text-[1.1rem] text-gray-200 mb-8 leading-relaxed">
-                  Feel free to reach out to me for any questions or opportunities.
+                  I&apos;m currently looking for new opportunities in data engineering and ETL development. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
                 </p>
-                
-                <div className="contact-item flex items-center gap-4 mb-6">
-                  <div className="contact-icon w-10 h-10 bg-[#FFD43B] text-[#3C7A3E] rounded-full flex items-center justify-center">
-                    📧
+                <div className="contact-details space-y-4">
+                  <div className="flex items-center gap-4">
+                    <svg className="w-6 h-6 text-[#FFD43B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <a href="mailto:ketan@example.com" className="text-[#FFD43B] hover:underline">
+                      ketan@example.com
+                    </a>
                   </div>
-                  <div>
-                    <h4 className="text-[1.1rem] font-medium mb-1 text-white">Email</h4>
-                    <p className="text-[0.95rem] text-gray-200">resume@ketankshukla.com</p>
+                  <div className="flex items-center gap-4">
+                    <svg className="w-6 h-6 text-[#FFD43B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    </svg>
+                    <a href="tel:+11234567890" className="text-[#FFD43B] hover:underline">
+                      +1 (123) 456-7890
+                    </a>
                   </div>
-                </div>
-
-                <div className="contact-item flex items-center gap-4 mb-6">
-                  <div className="contact-icon w-10 h-10 bg-[#FFD43B] text-[#3C7A3E] rounded-full flex items-center justify-center">
-                    📱
-                  </div>
-                  <div>
-                    <h4 className="text-[1.1rem] font-medium mb-1 text-white">Phone</h4>
-                    <p className="text-[0.95rem] text-gray-200">619-669-8545</p>
-                  </div>
-                </div>
-
-                <div className="contact-item flex items-center gap-4">
-                  <div className="contact-icon w-10 h-10 bg-[#FFD43B] text-[#3C7A3E] rounded-full flex items-center justify-center">
-                    📍
-                  </div>
-                  <div>
-                    <h4 className="text-[1.1rem] font-medium mb-1 text-white">Location</h4>
-                    <p className="text-[0.95rem] text-gray-200">San Diego, CA</p>
+                  <div className="flex items-center gap-4">
+                    <svg className="w-6 h-6 text-[#FFD43B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span className="text-[#FFD43B]">San Diego, CA</span>
                   </div>
                 </div>
               </div>
-
               <div className="contact-form flex-1">
-                <h3 className="text-[1.5rem] font-semibold mb-8 text-white">Send Message</h3>
+                <h3 className="text-[1.8rem] font-semibold mb-6 text-white">Send Me a Message</h3>
                 <form className="space-y-6">
                   <div>
-                    <label htmlFor="name" className="block text-[0.95rem] font-medium text-gray-200 mb-2">Your Name</label>
+                    <label htmlFor="name" className="block text-[#FFD43B] mb-2">
+                      Your Name
+                    </label>
                     <input
                       type="text"
                       id="name"
                       name="name"
-                      className="w-full px-4 py-3 rounded-lg border border-[#FFD43B]/20 bg-[#3C7A3E]/5 text-white text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#FFD43B] focus:border-[#FFD43B]"
+                      className="w-full px-4 py-3 rounded-lg border border-[#FFD43B]/20 bg-[#3C7A3E]/5 text-white"
                       placeholder="Your Name"
                       required
                     />
                   </div>
-
                   <div>
-                    <label htmlFor="email" className="block text-[0.95rem] font-medium text-gray-200 mb-2">Your Email</label>
+                    <label htmlFor="email" className="block text-[#FFD43B] mb-2">
+                      Your Email
+                    </label>
                     <input
                       type="email"
                       id="email"
                       name="email"
-                      className="w-full px-4 py-3 rounded-lg border border-[#FFD43B]/20 bg-[#3C7A3E]/5 text-white text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#FFD43B] focus:border-[#FFD43B]"
+                      className="w-full px-4 py-3 rounded-lg border border-[#FFD43B]/20 bg-[#3C7A3E]/5 text-white"
                       placeholder="Your Email"
                       required
                     />
                   </div>
-
                   <div>
-                    <label htmlFor="subject" className="block text-[0.95rem] font-medium text-gray-200 mb-2">Subject</label>
+                    <label htmlFor="subject" className="block text-[#FFD43B] mb-2">
+                      Subject
+                    </label>
                     <input
                       type="text"
                       id="subject"
                       name="subject"
-                      className="w-full px-4 py-3 rounded-lg border border-[#FFD43B]/20 bg-[#3C7A3E]/5 text-white text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#FFD43B] focus:border-[#FFD43B]"
+                      className="w-full px-4 py-3 rounded-lg border border-[#FFD43B]/20 bg-[#3C7A3E]/5 text-white"
                       placeholder="Subject"
                     />
                   </div>
-
                   <div>
-                    <label htmlFor="message" className="block text-[0.95rem] font-medium text-gray-200 mb-2">Your Message</label>
+                    <label htmlFor="message" className="block text-[#FFD43B] mb-2">
+                      Your Message
+                    </label>
                     <textarea
                       id="message"
                       name="message"
                       rows={4}
-                      className="w-full px-4 py-3 rounded-lg border border-[#FFD43B]/20 bg-[#3C7A3E]/5 text-white text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#FFD43B] focus:border-[#FFD43B]"
+                      className="w-full px-4 py-3 rounded-lg border border-[#FFD43B]/20 bg-[#3C7A3E]/5 text-white"
                       placeholder="Your Message"
                       required
-                    />
+                    ></textarea>
                   </div>
-
                   <button
                     type="submit"
-                    className="w-full bg-[#FFD43B] text-[#3C7A3E] py-3 px-6 rounded-lg text-[0.95rem] font-semibold hover:bg-[#FFE873] transition-colors"
+                    className="px-6 py-3 bg-[#FFD43B] text-[#3C7A3E] rounded-lg hover:bg-[#FFE873] transition-colors font-semibold"
                   >
                     Send Message
                   </button>
@@ -518,7 +357,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
       </main>
       
       <Footer />
