@@ -1,7 +1,57 @@
-import React from 'react';
+// src/components/ContactSection.tsx
+'use client';
+
+import React, { useState } from 'react';
 import { FC } from 'react';
 
 const ContactSection: FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to send message');
+      }
+
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setSuccess('Message sent successfully!');
+    } catch (err: Error) {
+      const errorMessage = err.message || 'Failed to send message. Please try again.';
+      console.error('Form submission error:', err);
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   return (
     <section id="contact" className="py-24 bg-[#3C7A3E]">
       <div className="w-[90%] max-w-[1200px] mx-auto px-4">
@@ -17,7 +67,7 @@ const ContactSection: FC = () => {
             </p>
             <div className="contact-details space-y-4">
               <div className="flex items-center gap-4">
-                <svg className="w-6 h-6 text-[#FFD43B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-6 h-6 text-[#FFD43B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="[http://www.w3.org/2000/svg">](http://www.w3.org/2000/svg">)
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                 </svg>
                 <a href="mailto:resume@ketankshukla.com" className="text-[#FFD43B] hover:underline">
@@ -25,7 +75,7 @@ const ContactSection: FC = () => {
                 </a>
               </div>
               <div className="flex items-center gap-4">
-                <svg className="w-6 h-6 text-[#FFD43B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-6 h-6 text-[#FFD43B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="[http://www.w3.org/2000/svg">](http://www.w3.org/2000/svg">)
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                 </svg>
                 <a href="tel:+16196698545" className="text-[#FFD43B] hover:underline">
@@ -33,7 +83,7 @@ const ContactSection: FC = () => {
                 </a>
               </div>
               <div className="flex items-center gap-4">
-                <svg className="w-6 h-6 text-[#FFD43B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-6 h-6 text-[#FFD43B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg">)
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
@@ -45,8 +95,19 @@ const ContactSection: FC = () => {
             <h3 className="text-[1.8rem] font-semibold mb-6 text-white">Send Me a Message</h3>
             <form 
               className="space-y-6"
+              onSubmit={handleSubmit}
               suppressHydrationWarning={true}
             >
+              {error && (
+                <div className="text-red-400 text-sm mb-4">
+                  {error}
+                </div>
+              )}
+              {success && (
+                <div className="text-green-400 text-sm mb-4">
+                  {success}
+                </div>
+              )}
               <div>
                 <label htmlFor="name" className="block text-[#FFD43B] mb-2">
                   Your Name
@@ -55,6 +116,8 @@ const ContactSection: FC = () => {
                   type="text"
                   id="name"
                   name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 rounded-lg border border-[#FFD43B]/20 bg-[#3C7A3E]/5 text-white placeholder-[#FFD43B]/50 focus:outline-none focus:ring-2 focus:ring-[#FFD43B]"
                   placeholder="Your Name"
                   required
@@ -69,6 +132,8 @@ const ContactSection: FC = () => {
                   type="email"
                   id="email"
                   name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 rounded-lg border border-[#FFD43B]/20 bg-[#3C7A3E]/5 text-white placeholder-[#FFD43B]/50 focus:outline-none focus:ring-2 focus:ring-[#FFD43B]"
                   placeholder="Your Email"
                   required
@@ -83,6 +148,8 @@ const ContactSection: FC = () => {
                   type="text"
                   id="subject"
                   name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 rounded-lg border border-[#FFD43B]/20 bg-[#3C7A3E]/5 text-white placeholder-[#FFD43B]/50 focus:outline-none focus:ring-2 focus:ring-[#FFD43B]"
                   placeholder="Subject"
                   suppressHydrationWarning={true}
@@ -95,6 +162,8 @@ const ContactSection: FC = () => {
                 <textarea
                   id="message"
                   name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   rows={4}
                   className="w-full px-4 py-3 rounded-lg border border-[#FFD43B]/20 bg-[#3C7A3E]/5 text-white placeholder-[#FFD43B]/50 focus:outline-none focus:ring-2 focus:ring-[#FFD43B]"
                   placeholder="Your Message"
@@ -104,9 +173,10 @@ const ContactSection: FC = () => {
               </div>
               <button
                 type="submit"
+                disabled={isLoading}
                 className="px-6 py-3 bg-[#FFD43B] text-[#3C7A3E] rounded-lg hover:bg-[#FFE873] transition-colors font-semibold"
               >
-                Send Message
+                {isLoading ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>
